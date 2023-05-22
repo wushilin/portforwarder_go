@@ -21,3 +21,4 @@
 go.work
 portforward_go
 build/
+*.log
