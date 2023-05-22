@@ -37,18 +37,19 @@ func main() {
 	flag.Var(&binding, "b", "(multiple) Binding in [bind_address]:port::target_address:port format (e.g. :22::remote.host.com:22)")
 	flag.IntVar(&logLevel, "loglevel", 0, "Log level (0 for debug, higher is less)")
 	flag.Parse()
-	INFO().Msgf("Setting logging level to %d", logLevel)
 	if len(binding) == 0 {
 		Usage()
 		os.Exit(1)
 	}
 
+	SetLogLevel(logLevel)
+	INFO("Setting logging level to %d", logLevel)
 	wg := new(sync.WaitGroup)
 	workers := make([]*worker.WorkerConfig, 0)
 	for _, spec := range binding {
 		config, err := parse(spec)
 		if err != nil {
-			FATAL().Msgf("Error: %s", err)
+			FATAL("Error: %s", err)
 			os.Exit(1)
 		}
 		wg.Add(1)
@@ -102,7 +103,7 @@ func parse(input string) (config *worker.WorkerConfig, err error) {
 func report(ws []*worker.WorkerConfig) {
 	for {
 		for _, next := range ws {
-			INFO().Msgf(" *** STATUS for %s:%d->%s:%d uploaded %d bytes; downloaded %d bytes; active requests %d; total requests %d",
+			INFO("* STATUS for %s:%d->%s:%d Up %d b; Down %d b; Active r %d; Total r %d",
 				next.BindAddress, next.BindPort, next.TargetHost, next.TargetPort,
 				next.Uploaded, next.Downloaded, next.Active, next.TotalHandled)
 		}

@@ -2,7 +2,10 @@ module github.com/wushilin/portforwarder_go
 
 go 1.20
 
-require github.com/rs/zerolog v1.29.1
+require (
+	github.com/rs/zerolog v1.29.1
+	gopkg.in/natefinch/lumberjack.v2 v2.2.1
+)
 
 require (
 	github.com/mattn/go-colorable v0.1.12 // indirect
