@@ -103,7 +103,7 @@ func parse(input string) (config *worker.WorkerConfig, err error) {
 func report(ws []*worker.WorkerConfig) {
 	for {
 		for _, next := range ws {
-			INFO("* STATUS for %s:%d->%s:%d Up %d b; Down %d b; Active r %d; Total r %d",
+			INFO("* STATUS for %s:%d->%s:%d Up %d b; Down %d b; Active %d; Total %d",
 				next.BindAddress, next.BindPort, next.TargetHost, next.TargetPort,
 				next.Uploaded, next.Downloaded, next.Active, next.TotalHandled)
 		}
